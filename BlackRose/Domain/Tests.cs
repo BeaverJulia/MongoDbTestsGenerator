@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlackRose.Options
+namespace TestsGenerator.Domain
 {
-    public class JwtSettings
+    public class Tests
     {
-        public string Secret { get; set; }
     }
 }

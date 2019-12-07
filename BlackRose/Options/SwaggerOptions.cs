@@ -1,4 +1,4 @@
-﻿namespace BlackRose.Options
+﻿namespace TestsGenerator.Options
 {
     public class SwaggerOptions
     {

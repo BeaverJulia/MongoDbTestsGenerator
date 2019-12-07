@@ -1,4 +1,4 @@
-﻿namespace BlackRose.Contracts.V1
+﻿namespace TestsGenerator.Contracts.V1
 {
     public static class ApiRoutes
     {

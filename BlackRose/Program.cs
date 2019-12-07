@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace BlackRose
+namespace TestsGenerator
 {
     public class Program
     {
