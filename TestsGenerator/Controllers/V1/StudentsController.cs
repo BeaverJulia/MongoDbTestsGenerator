@@ -21,7 +21,7 @@ namespace TestsGenerator.Controllers
         [HttpPost("api/v1/AddStudent")]
         public IActionResult AddStudent(string name, string surname, int year, DateTime dateofbirth)
         {
-            MongoCollection studentcollection = _dbcontext.database.GetCollection<Student>("Students");
+           var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             Student student = new Student();
             student.Name = name;
             student.Surname = surname;
@@ -29,34 +29,33 @@ namespace TestsGenerator.Controllers
             student.DateofBirth = dateofbirth;
             student.Id = student.Name.Remove(1) + student.Surname.Remove(1) + student.DateofBirth.ToString("MMddyyyy");
             student.DateofBirth = dateofbirth;
-            studentcollection.Insert(student);
+            studentcollection.InsertOne(student);
 
             return Ok(student);
         }
         [HttpGet("api/v1/GetStudentBySurname")]
         public IActionResult GetStudentBySurname(string surname)
         {
-            MongoCollection studentcollection = _dbcontext.database.GetCollection<Student>("Students");
-            var query = Query.EQ("Surname", surname);
-            var dupa = studentcollection.FindAs(typeof(Student), query);
+            var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
+            var dupa = studentcollection.Find(x => x.Surname == surname);
 
             return Ok(dupa);
         }
         [HttpGet("api/v1/students/GetStudentsByYear")]
         public IActionResult GetStudentsByYear(int year)
         {
-            MongoCollection studentcollection = _dbcontext.database.GetCollection<Student>("Students");
+            var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             var query = Query.EQ("Year", year);
-            var result = studentcollection.FindAs(typeof(Student), query);
+            var result = studentcollection.Find(x=>x.Year==year);
 
             return Ok(result);
         }
         [HttpDelete("api/v1/students/DeleteStudentBySurname")]
         public IActionResult DeleteStudentBySurname(string surname)
         {
-            MongoCollection studentcollection = _dbcontext.database.GetCollection<Student>("Students");
+            var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             var query = Query.EQ("Surname", surname);
-            var result = studentcollection.Remove(query);
+            var result = studentcollection.DeleteOne(x => x.Surname == surname);
 
             return Ok(result);
         }

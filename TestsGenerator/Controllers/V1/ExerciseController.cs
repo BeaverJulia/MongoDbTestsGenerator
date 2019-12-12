@@ -23,7 +23,7 @@ namespace TestsGenerator.Controllers.V1
         [HttpPost("api/v1/exercise")]
         public IActionResult AddExercise([FromBody]string text, string answerA, string answerB, string answerC, string key, string pictureA, string pictureB, string pictureC)
         {
-            MongoCollection exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
+            var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
             Exercise exercise = new Exercise();
             exercise.Text = text;
             exercise.AnswerA = answerA;
@@ -33,7 +33,7 @@ namespace TestsGenerator.Controllers.V1
             exercise.PictureB = pictureB;
             exercise.PictureC = pictureC;
             exercise.Key = key;
-            exercisecollection.Insert(exercise);
+            exercisecollection.InsertOne(exercise);
             Guid id = Guid.NewGuid();
             exercise.Id = id;
 
@@ -43,9 +43,9 @@ namespace TestsGenerator.Controllers.V1
         [HttpGet("api/v1/exercise/GetByYear")]
         public IActionResult GetByYear(int year)
         {
-            MongoCollection exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
+            var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
             var query = Query.EQ("Year", year);
-            var result = exercisecollection.FindAs(typeof(Student), query);
+            var result = exercisecollection.Find(x=>x.Year==year);
 
             return Ok(result);
         }

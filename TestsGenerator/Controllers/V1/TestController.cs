@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using TestsGenerator.Data;
 using TestsGenerator.Domain;
-
 
 namespace TestsGenerator.Controllers.V1
 {
@@ -17,13 +19,14 @@ namespace TestsGenerator.Controllers.V1
         {
             _dbcontext = new DbContext();
         }
-        [HttpGet]
-        public IActionResult GetTestForAStudent(int year, int surname)
+        [HttpGet("api/v1/tests/GetTest")]
+        public IActionResult GetTest(int year )
         {
-            MongoCollection studentcollection = _dbcontext.database.GetCollection<Student>("Students");
-            MongoCollection exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
-
-            return Ok();
+           
+            var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
+            var testscollection = _dbcontext.database.GetCollection<Tests>("Tests");
+            var result = exercisecollection.Find(x => x.Year == year).Skip(10).Limit(10);
+            return Ok(result);
         }
     }
 }
