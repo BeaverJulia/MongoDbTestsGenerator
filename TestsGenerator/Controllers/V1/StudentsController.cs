@@ -55,9 +55,9 @@ namespace TestsGenerator.Controllers
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             var query = Query.EQ("Surname", surname);
-            var result = studentcollection.DeleteOne(x => x.Surname == surname);
+            /*var result = studentcollection.DeleteOne(query)*/;
 
-            return Ok(result);
+            return Ok("");
         }
     }
 }
