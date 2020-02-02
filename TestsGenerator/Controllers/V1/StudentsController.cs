@@ -37,16 +37,17 @@ namespace TestsGenerator.Controllers
         public IActionResult GetStudentBySurname(string surname)
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
-            var dupa = studentcollection.Find(x => x.Surname == surname);
+            var query = Builders<Student>.Filter.Eq(x => x.Surname, surname);
+            var result = studentcollection.Find(query).ToList();
 
-            return Ok(dupa);
+            return Ok(result);
         }
         [HttpGet("api/v1/students/GetStudentsByYear")]
         public IActionResult GetStudentsByYear(int year)
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
-            var query = Query.EQ("Year", year);
-            var result = studentcollection.Find(x=>x.Year==year);
+            var query = Builders<Student>.Filter.Eq(x => x.Year, year);
+            var result = studentcollection.Find(query).ToList();
 
             return Ok(result);
         }
@@ -54,10 +55,10 @@ namespace TestsGenerator.Controllers
         public IActionResult DeleteStudentBySurname(string surname)
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
-            var query = Query.EQ("Surname", surname);
-            /*var result = studentcollection.DeleteOne(query)*/;
+            var query = Builders<Student>.Filter.Eq(x => x.Surname, surname);
+            var result = studentcollection.DeleteOne(query);
 
-            return Ok("");
+            return Ok("Student deleted " + result);
         }
     }
 }

@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace TestsGenerator.Domain
 {
-    public class Tests
+    public class Test
+
     {
         public List<Exercise> Exercises { get; set; }
+        public Student Student { get; set; }
+        public Guid Id { get; set; }
     }
 }
