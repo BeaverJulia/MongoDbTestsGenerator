@@ -1,7 +1,4 @@
-﻿using TestsGenerator.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace TestsGenerator.Data
 {

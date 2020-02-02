@@ -20,14 +20,14 @@ namespace TestsGenerator.Controllers.V1
             _dbcontext = new DbContext();
         }
         [HttpGet("api/v1/tests/GetTest")]
-        public IActionResult GenerateTestForStudent(int year, string surname, string studentId, int numberOfexercises )
+        public IActionResult GenerateTestForStudent( string surname, string studentId, int numberOfexercises )
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             var queryforStudents = Builders<Student>.Filter.Where(x => x.Surname == surname || x.Id == studentId);
             var students = studentcollection.Find(queryforStudents).ToList();
 
             var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
-            var queryForTests = Builders<Exercise>.Filter.Where(x=>x.Year==year);
+            var queryForTests = Builders<Exercise>.Filter.Where(x=>x.Year==students[1].Year);
             var exercises = exercisecollection.Find(queryForTests).Skip(1).Limit(numberOfexercises).ToList();
 
             var newTest = new Test
