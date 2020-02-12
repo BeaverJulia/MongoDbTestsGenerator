@@ -42,7 +42,7 @@ namespace TestsGenerator.Controllers.V1
             return Ok(exercise);
         }
         [HttpGet("api/v1/exercise/GetByYear")]
-        public IActionResult GetByYear([FromForm] string year)
+        public IActionResult GetByYear([FromQuery] string year)
         {
             var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
             var query = Builders<Exercise>.Filter.Eq(x => x.Year, year);
