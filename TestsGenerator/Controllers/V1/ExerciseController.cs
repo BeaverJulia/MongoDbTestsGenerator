@@ -21,7 +21,7 @@ namespace TestsGenerator.Controllers.V1
             _dbcontext = new DbContext();
         }
         [HttpPost("api/v1/exercise")]
-        public IActionResult AddExercise(string text, string answerA, string answerB, string answerC, string key, int year, string pictureA, string pictureB, string pictureC)
+        public IActionResult AddExercise([FromForm] string text, string answerA, string answerB, string answerC, string key, string year, string pictureA, string pictureB, string pictureC)
         {
             var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
             Exercise exercise = new Exercise();
@@ -42,7 +42,7 @@ namespace TestsGenerator.Controllers.V1
             return Ok(exercise);
         }
         [HttpGet("api/v1/exercise/GetByYear")]
-        public IActionResult GetByYear(int year)
+        public IActionResult GetByYear([FromForm] string year)
         {
             var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
             var query = Builders<Exercise>.Filter.Eq(x => x.Year, year);
