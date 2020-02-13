@@ -8,7 +8,7 @@ namespace TestsGenerator.Domain
     public class Exercise
     {
 
-        public int Year { get; set; }
+        public string Year { get; set; }
         public Guid Id { get; set; }
         public string Text { get; set; }
         public string AnswerA { get; set; }
