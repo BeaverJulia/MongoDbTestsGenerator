@@ -19,7 +19,7 @@ namespace TestsGenerator.Controllers
             _dbcontext = new DbContext();
         }
         [HttpPost("api/v1/AddStudent")]
-        public IActionResult AddStudent(string name, string surname, int year, DateTime dateofbirth)
+        public IActionResult AddStudent(string name, string surname, string year, DateTime dateofbirth)
         {
            var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             Student student = new Student();
@@ -43,7 +43,7 @@ namespace TestsGenerator.Controllers
             return Ok(result);
         }
         [HttpGet("api/v1/students/GetStudentsByYear")]
-        public IActionResult GetStudentsByYear(int year)
+        public IActionResult GetStudentsByYear(string year)
         {
             var studentcollection = _dbcontext.database.GetCollection<Student>("Students");
             var query = Builders<Student>.Filter.Eq(x => x.Year, year);
