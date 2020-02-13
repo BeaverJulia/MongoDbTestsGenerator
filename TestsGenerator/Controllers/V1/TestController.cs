@@ -27,7 +27,7 @@ namespace TestsGenerator.Controllers.V1
             var students = studentcollection.Find(queryforStudents).ToList();
 
             var exercisecollection = _dbcontext.database.GetCollection<Exercise>("Exercises");
-            var queryForTests = Builders<Exercise>.Filter.Where(x=>x.Year==students[1].Year.ToString());
+            var queryForTests = Builders<Exercise>.Filter.Where(x=>x.Year==students[1].Year);
             var exercises = exercisecollection.Find(queryForTests).Skip(1).Limit(numberOfexercises).ToList();
 
             var newTest = new Test
