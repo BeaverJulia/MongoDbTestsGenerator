@@ -25,8 +25,20 @@ namespace TestsGenerator
         {
 
             var databasecontext = new DbContext();
+            string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://local")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
 
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSwaggerGen(x => { x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Core API", Description = "Swagger Core API" }); });
@@ -54,7 +66,9 @@ namespace TestsGenerator
             });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           
+            string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseMvc();
 
 
