@@ -53,8 +53,8 @@ namespace TestsGenerator
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-            string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(options => options.AllowAnyOrigin());
+            
             app.UseMvc();
 
         }

@@ -1,5 +1,4 @@
 ﻿
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,18 +13,6 @@ namespace TestsGenerator.Installers
         public void InstallServices(IConfiguration configuration, IServiceCollection services)
         {
            
-            string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.WithOrigins("http://local")
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod();
-                                    
-                });
-            });
 
             services.AddMvc(options=> { options.EnableEndpointRouting = false; }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
            
