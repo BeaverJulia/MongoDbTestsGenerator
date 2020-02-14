@@ -14,7 +14,7 @@ namespace TestsGenerator.Installers
             services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
                                                               .AllowAnyMethod()
                                                                .AllowAnyHeader()));
-
+            s
 
             var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
                     typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
