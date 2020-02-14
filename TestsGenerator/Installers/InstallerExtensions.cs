@@ -11,19 +11,11 @@ namespace TestsGenerator.Installers
     {
         public static void InstallServicesInAssembly(this IServiceCollection services, IConfiguration configuration)
         {
-            string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-            services.AddCors(options =>
-            {
-                options.AddPolicy(MyAllowSpecificOrigins,
-                builder =>
-                {
-                    builder.WithOrigins("*")
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .AllowCredentials();
-                });
-            });
-            
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+                                                              .AllowAnyMethod()
+                                                               .AllowAnyHeader()));
+
+
             var installers = typeof(Startup).Assembly.ExportedTypes.Where(x =>
                     typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
                 .Select(Activator.CreateInstance).Cast<IInstaller>().ToList();
